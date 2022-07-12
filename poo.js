@@ -13,7 +13,7 @@ class AbstractAnimal extends AbstractNourriture {
      */
     constructor(nom, couleur, sante = 100, ptsDeVie = 10) {
         super(ptsDeVie);
-        
+
         if(this.constructor === AbstractAnimal){
             throw new TypeError("Abstract class AbstractAnimal cannot be instantiated directly.");
         }
@@ -22,27 +22,35 @@ class AbstractAnimal extends AbstractNourriture {
         this.sante = sante;
     }
 
+    get nomFormate(){
+        return "'" + this.nom + "'";
+    }
+
     dormir() {
-        console.log("L'animal " + this.nom + " dort.");
+        console.log("L'animal " + this.nomFormate + " dort.");
     }
 
     manger(nourriture) {
-        console.log("L'animal " + this.nom + " mange " + nourriture.nom);
+        console.log("L'animal " + this.nomFormate + " mange " + nourriture.nom);
 
-        this.sante += nourriture.ptsDeVie;
-
+        if(this instanceof Requin){
+            console.log("C'est un requin qui mange.");
+            this.sante += nourriture.ptsDeVie * 2;    
+        }else{
+            this.sante += nourriture.ptsDeVie;
+        }
     }
 
     attaquer() {
-        console.log("L'animal " + this.nom + " attaque.");
+        console.log("L'animal " + this.nomFormate + " attaque.");
     }
 
     seDeplacer() {
-        console.log("L'animal " + this.nom + " se déplace.");
+        console.log("L'animal " + this.nomFormate + " se déplace.");
     }
 
     communiquer() {
-        console.log("L'animal " + this.nom + " communique.");
+        console.log("L'animal " + this.nomFormate + " communique.");
     }
 }
 
@@ -59,12 +67,12 @@ class AbstractOiseau extends AbstractAnimal {
 
     voler(){
         super.seDeplacer();
-        console.log("L'oiseau " + this.nom + " vole.");
+        console.log("L'oiseau " + this.nomFormate + " vole.");
     }
 
     chanter(){
         super.communiquer();
-        console.log("L'oiseau " + this.nom + " chante.");
+        console.log("L'oiseau " + this.nomFormate + " chante.");
     }
 
 }
@@ -83,28 +91,28 @@ class AbstractPoisson extends AbstractAnimal{
     }
 
     nager(){
-        console.log("Le poisson " + this.nom + " nage.");
+        console.log("Le poisson " + this.nomFormate + " nage.");
         super.seDeplacer();
     }
 }
 
 class Dauphin extends AbstractPoisson{
     constructor(nom, couleur, sante = 100){
-        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+        super(nom, couleur, sante, 25, typesPoisson.EAU_SALEE);
     }
 
     surfer(){
-        console.log("Le dauphin " + this.nom + " surfe.");
+        console.log("Le dauphin " + this.nomFormate + " surfe.");
     }
 }
 
 class Baleine extends AbstractPoisson{
     constructor(nom, couleur, sante = 100){
-        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+        super(nom, couleur, sante, 30, typesPoisson.EAU_SALEE);
     }
 
     plonger(){
-        console.log("La baleine " + this.nom + " plonge.");
+        console.log("La baleine " + this.nomFormate + " plonge.");
     }
 
 }
@@ -117,7 +125,7 @@ const especesRequin = {
 
 class Requin extends AbstractPoisson{
     constructor(nom, couleur, sante = 100, espece){
-        super(nom, couleur, sante);
+        super(nom, couleur, sante, 0);
 
         this.type = this.espece == especesRequin.BOULEDOGUE ? typesPoisson.EAU_DOUCE_ET_SALEE : typesPoisson.EAU_SALEE;
 
@@ -128,8 +136,8 @@ class Requin extends AbstractPoisson{
         console.log("Le requin ne communique pas.");
     }
 
-    devorer(){
-        super.manger();
+    devorer(nourriture){
+        super.manger(nourriture);
     }
 
     manger(){
@@ -151,7 +159,7 @@ class Pie extends AbstractOiseau{
     }
 
     chaparder(){
-        console.log("La pie " + this.nom + " chaparde.");
+        console.log("La pie " + this.nomFormate + " chaparde.");
     }
 }
 
@@ -168,12 +176,12 @@ class Perroquet extends AbstractOiseau{
     }
 
     parler(){
-        console.log("Le perroquet " + this.nom + " parle.");
+        console.log("Le perroquet " + this.nomFormate + " parle.");
         super.communiquer();
     }
 
     communiquer(){
-        console.log("Le perroquet " + this.nom + " communique.");
+        console.log("Le perroquet " + this.nomFormate + " communique.");
     }
 }
 
@@ -190,9 +198,18 @@ console.log("--------");
 coco.communiquer();
 
 const mobyDick = new Baleine("Moby Dick", 0x3e3e3e, 90);
-const flipper = new Dauphin("Flipper", 0x3e3e3e, 100);
+console.log(mobyDick);
 
-const bruce = new Requin("Bruce", 0x3e3e3e, 100, x);
+const flipper = new Dauphin("Flipper", 0x3e3e3e, 100);
+console.log(flipper);
+
+
+const bruce = new Requin("Bruce", 0x3e3e3e, 100, especesRequin.BLANC);
 const enclume = new Requin("Enclume", 0x3e3e3e, 100, especesRequin.MARTEAU);
 const boule = new Requin("Boule", 0x3e3e3e, 100, especesRequin.BOULEDOGUE);
 
+console.log(bruce);
+console.log(enclume);
+console.log(boule);
+
+bruce.devorer(flipper);
