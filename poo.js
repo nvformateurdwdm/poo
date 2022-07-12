@@ -177,3 +177,10 @@ coco.parler();
 console.log("--------");
 
 coco.communiquer();
+
+const mobyDick = new Baleine("Moby Dick", 0x3e3e3e, 90);
+const flipper = new Dauphin("Flipper", 0x3e3e3e, 100);
+
+const bruce = new Requin("Bruce", 0x3e3e3e, 100, x);
+const enclume = new Requin("Enclume", 0x3e3e3e, 100, especesRequin.MARTEAU);
+const boule = new Requin("Boule", 0x3e3e3e, 100, especesRequin.BOULEDOGUE);
