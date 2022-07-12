@@ -7,7 +7,7 @@ class AbstractAnimal {
      */
     constructor(nom, couleur, sante = 100) {
         if(this.constructor === AbstractAnimal){
-            throw new TypeError("Abstract class AbstractAnimal cannot be instantiated directly");
+            throw new TypeError("Abstract class AbstractAnimal cannot be instantiated directly.");
         }
         this.nom = nom;
         this.couleur = couleur;
@@ -35,9 +35,13 @@ class AbstractAnimal {
     }
 }
 
-class Oiseau extends AbstractAnimal {
+class AbstractOiseau extends AbstractAnimal {
     constructor(nom, couleur, sante = 100, longueurDesAiles){
         super(nom, couleur, sante);
+        
+        if(this.constructor === AbstractOiseau){
+            throw new TypeError("Abstract class Oiseau cannot be instantiated directly.");
+        }
 
         this.longueurDesAiles = longueurDesAiles;
     }
@@ -54,7 +58,7 @@ class Oiseau extends AbstractAnimal {
 
 }
 
-class Pie extends Oiseau{
+class Pie extends AbstractOiseau{
     /**
      * 
      * @param {String} nom 
@@ -70,6 +74,25 @@ class Pie extends Oiseau{
         console.log("La pie " + this.nom + " chaparde.");
     }
 }
+
+class Perroquet extends AbstractOiseau{
+    /**
+     * 
+     * @param {String} nom 
+     * @param {Number} couleur 
+     * @param {Number} sante 
+     * @param {Number} longueurDesAiles 
+     */
+    constructor(nom, couleur, sante = 100, longueurDesAiles){
+        super(nom, couleur, sante, longueurDesAiles);
+    }
+
+    parler(){
+        console.log("Le perroquet " + this.nom + " parle.");
+    }
+}
+
+
 
 const pieQuiChante = new Pie("Pie Qui Chante", 0x000000, 100, 50);
 console.log(pieQuiChante);
