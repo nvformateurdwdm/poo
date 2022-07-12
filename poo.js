@@ -89,10 +89,22 @@ class Perroquet extends AbstractOiseau{
 
     parler(){
         console.log("Le perroquet " + this.nom + " parle.");
+        super.communiquer();
+    }
+
+    communiquer(){
+        console.log("Le perroquet " + this.nom + " communique.");
     }
 }
 
 
-
 const pieQuiChante = new Pie("Pie Qui Chante", 0x000000, 100, 50);
 console.log(pieQuiChante);
+pieQuiChante.chanter();
+
+const coco = new Perroquet("Coco", 0xFF0000, 100, 80);
+console.log(coco);
+coco.parler();
+console.log("--------");
+
+coco.communiquer();
