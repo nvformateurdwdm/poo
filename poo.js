@@ -1,4 +1,4 @@
-class Animal {
+class AbstractAnimal {
     /**
      * 
      * @param {String} nom 
@@ -6,6 +6,9 @@ class Animal {
      * @param {Number} sante 
      */
     constructor(nom, couleur, sante = 100) {
+        if(this.constructor === AbstractAnimal){
+            throw new TypeError("Abstract class AbstractAnimal cannot be instantiated directly");
+        }
         this.nom = nom;
         this.couleur = couleur;
         this.sante = sante;
@@ -32,7 +35,7 @@ class Animal {
     }
 }
 
-class Oiseau extends Animal {
+class Oiseau extends AbstractAnimal {
     constructor(nom, couleur, sante = 100, longueurDesAiles){
         super(nom, couleur, sante);
 
