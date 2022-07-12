@@ -1,11 +1,19 @@
-class AbstractAnimal {
+class AbstractNourriture{
+    constructor(ptsDeVie = 10){
+        this.ptsDeVie = ptsDeVie;
+    }
+}
+
+class AbstractAnimal extends AbstractNourriture {
     /**
      * 
      * @param {String} nom 
      * @param {Number} couleur 
      * @param {Number} sante 
      */
-    constructor(nom, couleur, sante = 100) {
+    constructor(nom, couleur, sante = 100, ptsDeVie = 10) {
+        super(ptsDeVie);
+        
         if(this.constructor === AbstractAnimal){
             throw new TypeError("Abstract class AbstractAnimal cannot be instantiated directly.");
         }
@@ -18,8 +26,11 @@ class AbstractAnimal {
         console.log("L'animal " + this.nom + " dort.");
     }
 
-    manger() {
-        console.log("L'animal " + this.nom + " mange.");
+    manger(nourriture) {
+        console.log("L'animal " + this.nom + " mange " + nourriture.nom);
+
+        this.sante += nourriture.ptsDeVie;
+
     }
 
     attaquer() {
@@ -36,8 +47,8 @@ class AbstractAnimal {
 }
 
 class AbstractOiseau extends AbstractAnimal {
-    constructor(nom, couleur, sante = 100, longueurDesAiles){
-        super(nom, couleur, sante);
+    constructor(nom, couleur, sante = 100, ptsDeVie = 10, longueurDesAiles){
+        super(nom, couleur, sante, ptsDeVie);
         
         if(this.constructor === AbstractOiseau){
             throw new TypeError("Abstract class Oiseau cannot be instantiated directly.");
@@ -65,8 +76,8 @@ const typesPoisson = {
 }
 
 class AbstractPoisson extends AbstractAnimal{
-    constructor(nom, couleur, sante = 100, type){
-        super(nom, couleur, sante);
+    constructor(nom, couleur, sante = 100, ptsDeVie = 15, type){
+        super(nom, couleur, sante, ptsDeVie);
 
         this.type = type;
     }
@@ -184,3 +195,4 @@ const flipper = new Dauphin("Flipper", 0x3e3e3e, 100);
 const bruce = new Requin("Bruce", 0x3e3e3e, 100, x);
 const enclume = new Requin("Enclume", 0x3e3e3e, 100, especesRequin.MARTEAU);
 const boule = new Requin("Boule", 0x3e3e3e, 100, especesRequin.BOULEDOGUE);
+
