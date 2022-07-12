@@ -58,6 +58,75 @@ class AbstractOiseau extends AbstractAnimal {
 
 }
 
+const typesPoisson = {
+    EAU_DOUCE: 1,
+    EAU_SALEE: 2,
+    EAU_DOUCE_ET_SALEE: 3
+}
+
+class AbstractPoisson extends AbstractAnimal{
+    constructor(nom, couleur, sante = 100, type){
+        super(nom, couleur, sante);
+
+        this.type = type;
+    }
+
+    nager(){
+        console.log("Le poisson " + this.nom + " nage.");
+        super.seDeplacer();
+    }
+}
+
+class Dauphin extends AbstractPoisson{
+    constructor(nom, couleur, sante = 100){
+        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+    }
+
+    surfer(){
+        console.log("Le dauphin " + this.nom + " surfe.");
+    }
+}
+
+class Baleine extends AbstractPoisson{
+    constructor(nom, couleur, sante = 100){
+        super(nom, couleur, sante, typesPoisson.EAU_SALEE);
+    }
+
+    plonger(){
+        console.log("La baleine " + this.nom + " plonge.");
+    }
+
+}
+
+const especesRequin = {
+    BLANC: 1,
+    BOULEDOGUE: 2,
+    MARTEAU: 3
+}
+
+class Requin extends AbstractPoisson{
+    constructor(nom, couleur, sante = 100, espece){
+        super(nom, couleur, sante);
+
+        this.type = this.espece == especesRequin.BOULEDOGUE ? typesPoisson.EAU_DOUCE_ET_SALEE : typesPoisson.EAU_SALEE;
+
+        this.sante = this.espece == especesRequin.MARTEAU ? 50 : this.sante;
+    }
+
+    communiquer(){
+        console.log("Le requin ne communique pas.");
+    }
+
+    devorer(){
+        super.manger();
+    }
+
+    manger(){
+        console.log("Le requin ne mange pas, il dévore !");
+    }
+
+}
+
 class Pie extends AbstractOiseau{
     /**
      * 
